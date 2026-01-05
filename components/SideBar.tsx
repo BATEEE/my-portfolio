@@ -1,7 +1,7 @@
 "use client"; // Bắt buộc phải có dòng này vì dùng useState/useEffect
 
 import React, { useState, useEffect } from "react";
-import { Github, Linkedin, Instagram, Code, FileText } from "lucide-react";
+import { Github, Linkedin, FileText, Mail } from "lucide-react";
 
 const navLinks = [
   { name: "ABOUT", href: "#about" },
@@ -10,10 +10,9 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { name: "GitHub", href: "https://github.com/yourname", icon: Github },
-  { name: "LinkedIn", href: "https://linkedin.com/in/yourname", icon: Linkedin },
-  { name: "CodePen", href: "https://codepen.io/yourname", icon: Code },
-  { name: "Instagram", href: "https://instagram.com/yourname", icon: Instagram },
+  { name: "GitHub", href: "https://github.com/BATEEE", icon: Github },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/tran-tuan-thang-9628b0391/", icon: Linkedin },
+  { name: "Email", href: "mailto:thangtran081204@gmail.com", icon: Mail },
 ];
 
 export default function Sidebar() {
@@ -79,16 +78,16 @@ export default function Sidebar() {
                     <span
                       className={`nav-indicator mr-4 h-px transition-all motion-reduce:transition-none ${
                         isActive 
-                          ? "w-16 bg-slate-200" // Active style
-                          : "w-8 bg-slate-600 group-hover:w-16 group-hover:bg-slate-200" // Normal style
+                          ? "w-16 bg-slate-200"
+                          : "w-8 bg-slate-600 group-hover:w-16 group-hover:bg-slate-200"
                       }`}
                     />
                     {/* Text Label */}
                     <span
                       className={`nav-text text-xs font-bold uppercase tracking-widest motion-reduce:transition-none ${
                         isActive
-                          ? "text-slate-200" // Active text
-                          : "text-slate-500 group-hover:text-slate-200" // Normal text
+                          ? "text-slate-200"
+                          : "text-slate-500 group-hover:text-slate-200"
                       }`}
                     >
                       {link.name}
