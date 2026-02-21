@@ -1,4 +1,4 @@
-"use client"; // Bắt buộc phải có dòng này vì dùng useState/useEffect
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { Github, Linkedin, FileText, Mail } from "lucide-react";
@@ -27,7 +27,7 @@ export default function Sidebar() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     navLinks.forEach((link) => {
@@ -38,6 +38,19 @@ export default function Sidebar() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Smooth scroll handler
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   return (
     <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
@@ -73,10 +86,14 @@ export default function Sidebar() {
               
               return (
                 <li key={link.name}>
-                  <a className="group flex items-center py-3" href={link.href}>
+                  <a 
+                    className="group flex items-center py-3 cursor-pointer" 
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                  >
                     {/* Line Indicator */}
                     <span
-                      className={`nav-indicator mr-4 h-px transition-all motion-reduce:transition-none ${
+                      className={`nav-indicator mr-4 h-px transition-all duration-300 motion-reduce:transition-none ${
                         isActive 
                           ? "w-16 bg-slate-200"
                           : "w-8 bg-slate-600 group-hover:w-16 group-hover:bg-slate-200"
@@ -84,7 +101,7 @@ export default function Sidebar() {
                     />
                     {/* Text Label */}
                     <span
-                      className={`nav-text text-xs font-bold uppercase tracking-widest motion-reduce:transition-none ${
+                      className={`nav-text text-xs font-bold uppercase tracking-widest transition-colors duration-300 motion-reduce:transition-none ${
                         isActive
                           ? "text-slate-200"
                           : "text-slate-500 group-hover:text-slate-200"
@@ -103,8 +120,14 @@ export default function Sidebar() {
       {/* --- SOCIAL ICONS --- */}
       <ul className="ml-1 mt-8 flex items-center" aria-label="Social media">
         {socialLinks.map((item) => (
-          <li key={item.name} className="mr-5 text-xs">
-            <a href={item.href} className="block hover:text-slate-200" aria-label={item.name} target="_blank" rel="noopener noreferrer">
+          <li key={item.name} className="mr-5 shrink-0 text-xs">
+            <a
+              href={item.href}
+              className="block hover:text-slate-200 transition-colors duration-200"
+              aria-label={item.name}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <item.icon className="h-6 w-6" />
             </a>
           </li>
